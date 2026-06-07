@@ -15,7 +15,7 @@
 
 | 📅 Data Period | 🌍 Regions | 📦 Orders | 💰 Revenue | 🏭 Suppliers | 🚚 Ship Modes |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| Jan 2023 – Dec 2024 | 5 Global | 12,000+ | $193.99M | 10+ | 4 |
+| Jan 2023 – Dec 2024 | 5 Global | 12,000+ | $193.99M | 10+ | 5 |
 
 </div>
 
