@@ -193,7 +193,7 @@ Dim_Warehouse     ← Location, capacity units
 
 **Filters:** `Ship Mode` · `Customer Segment` · `Customer Region` · `Product Category`
 
-**Headline KPIs:** Total Sales **6.2M** · Sales Growth **0.23%** · YTD **3.5M** · QTD **1.6M** · MTD **13.9K**
+**Headline KPIs:** Total Sales **194.0M** · Sales Growth **4.93%** · YTD **100.9M** · QTD **25.8M** · MTD **9.3M**
 
 ![Excel Dashboard](https://github.com/bbhakumari123/Supply-Chain-Analytics/blob/2571f89481c8fd0484207481635079087fd89746/Supply_Chain_Analysis/Screenshot/Excel_Dashboard.png)
 
@@ -300,13 +300,9 @@ High spend concentration with one supplier creates supply chain fragility. A dis
 
 
 
-<div align="center">
 
-
-</div>
 
 ---
-
 <div align="center">
 
 *⭐ If this project helped you, consider giving it a star — it helps others find it too.*
