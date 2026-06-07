@@ -225,7 +225,7 @@ Dim_Warehouse     ← Location, capacity units
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | **$193.99M** | **12K** | **$70.16M** | **0.34%** | **66.03%** | **4 days** | **96.78%** |
 
-![Tableau Summary Dashboard](screenshots/Tableau_dashboard.png)
+![Tableau Summary Dashboard](https://github.com/bbhakumari123/Supply-Chain-Analytics/blob/968b4c2fa1ee93193e1e26493938b62252d88a4f/Supply_Chain_Analysis/Screenshot/Tableau_dashboard.png)
 
 ---
 
