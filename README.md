@@ -208,7 +208,7 @@ Dim_Warehouse     ← Location, capacity units
 |:---:|:---:|:---:|:---:|:---:|
 | **$193.99M** | **12K** | **$125.45M** | **9M units** | **$1.62M** |
 
-![Power BI Dashboard](screenshots/Power_bi_dashboard.png)
+![Power BI Dashboard](https://github.com/bbhakumari123/Supply-Chain-Analytics/blob/94f2d8a2c1be509e27987574e0857c0759db3db1/Supply_Chain_Analysis/Screenshot/Power_bi_dashboard.png)
 
 <div align="center">
 
