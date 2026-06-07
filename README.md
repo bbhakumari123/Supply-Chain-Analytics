@@ -234,7 +234,7 @@ Dim_Warehouse     ← Location, capacity units
 
 **Visuals:** Delivery Status by Month · Gross Profit by Order · Revenue by Category (treemap) · Top 10 Products by Revenue
 
-![Tableau Performance Dashboard](screenshots/Tableau_dashboard2.png)
+![Tableau Performance Dashboard](https://github.com/bbhakumari123/Supply-Chain-Analytics/blob/d8019d6d878bc130d58e2b3ea7b51b6884fe7603/Supply_Chain_Analysis/Screenshot/Tableau_dashboard2.png)
 
 <div align="center">
 
