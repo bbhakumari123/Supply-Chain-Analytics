@@ -1,4 +1,4 @@
-<div align="center">
+  <div align="center">
 
 # 🔗 Supply Chain Analytics — End-to-End Business Intelligence System
 
@@ -195,7 +195,7 @@ Dim_Warehouse     ← Location, capacity units
 
 **Headline KPIs:** Total Sales **6.2M** · Sales Growth **0.23%** · YTD **3.5M** · QTD **1.6M** · MTD **13.9K**
 
-![Excel Dashboard](screenshots/Excel_dashboard.png)
+![Excel Dashboard](https://github.com/bbhakumari123/Supply-Chain-Analytics/blob/2571f89481c8fd0484207481635079087fd89746/Supply_Chain_Analysis/Screenshot/Excel_Dashboard.png)
 
 ---
 
@@ -298,7 +298,7 @@ High spend concentration with one supplier creates supply chain fragility. A dis
 
 ---
 
-## 📬 Contact
+
 
 <div align="center">
 
