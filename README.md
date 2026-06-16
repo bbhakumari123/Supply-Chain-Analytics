@@ -54,8 +54,7 @@
 
 Supply chain teams operating at scale **drown in data but starve for decisions.** Without a unified view across sales, inventory, logistics, and supplier performance, operations leaders face three recurring failures:
 
-> ❌ **Stockouts and overstock coexist** — because inventory levels are tracked in silos with no cross-warehouse visibility
->
+
 > ❌ **Late deliveries go unattributed** — no one knows whether the delay is the carrier, the supplier, or the warehouse
 >
 > ❌ **Revenue looks healthy on the surface** — while gross margin erodes quietly through shipping cost and COGS inefficiencies
