@@ -52,7 +52,7 @@
 
 ## 🔴 The Business Problem
 
-Supply chain teams operating at scale **drown in data but starve for decisions.** Without a unified view across sales, inventory, logistics, and supplier performance, operations leaders face three recurring failures:
+Supply chain teams operating at scale **drown in data but starve for decisions.** Without a unified view across sales, inventory, logistics, and supplier performance, operations leaders face two recurring failures:
 
 
 > ❌ **Late deliveries go unattributed** — no one knows whether the delay is the carrier, the supplier, or the warehouse
