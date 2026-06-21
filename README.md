@@ -1,11 +1,12 @@
-  <div align="center">
+<div align="center">
 
 # 🔗 Supply Chain Analytics — End-to-End Business Intelligence System
 
-### *Turned raw supply chain data into executive-ready decisions — 29 SQL-engineered KPIs tracking $194M revenue, 66% OTD rate, and supplier performance across 3 BI platforms.*
+### *Turned raw supply chain data into executive-ready decisions — Python-engineered ETL pipeline, 29 SQL KPI views, and $194M revenue tracked across 3 BI platforms.*
 
 <br>
 
+[![Python](https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Power BI](https://img.shields.io/badge/Power%20BI-Live%20Dashboard-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://app.powerbi.com/groups/414e2d19-0c5e-4b91-9ae3-42245edd8581/reports/bd107a39-d967-4964-8592-6d2e4faf3705/02a6f13eb5cfc514fb0d?experience=power-bi)
 [![Tableau](https://img.shields.io/badge/Tableau-Live%20Dashboard-E97627?style=for-the-badge&logo=tableau&logoColor=white)](https://public.tableau.com/app/profile/bibha.kumari/viz/sales_analytics_17807314646940/SummaryDashboard)
@@ -28,6 +29,7 @@
 - [What This Project Demonstrates](#-what-this-project-demonstrates)
 - [Tech Stack](#-tech-stack)
 - [Data Architecture](#-data-architecture--why-star-schema)
+- [Python ETL Pipeline](#-python-etl-pipeline)
 - [SQL Views & KPI Engineering](#-sql-views--kpi-engineering)
 - [Dashboards](#-dashboards)
 - [Key Insights & Recommended Actions](#-key-insights--recommended-actions)
@@ -54,12 +56,11 @@
 
 Supply chain teams operating at scale **drown in data but starve for decisions.** Without a unified view across sales, inventory, logistics, and supplier performance, operations leaders face two recurring failures:
 
-
 > ❌ **Late deliveries go unattributed** — no one knows whether the delay is the carrier, the supplier, or the warehouse
 >
 > ❌ **Revenue looks healthy on the surface** — while gross margin erodes quietly through shipping cost and COGS inefficiencies
 
-**This project was built to solve exactly that** — one connected analytics system, from raw MySQL data modeling to interactive executive dashboards, that makes every layer of supply chain performance visible and actionable.
+**This project was built to solve exactly that** — one connected analytics system, from raw Excel data through a Python-engineered ETL pipeline into MySQL, all the way to interactive executive dashboards, making every layer of supply chain performance visible and actionable.
 
 ---
 
@@ -67,6 +68,7 @@ Supply chain teams operating at scale **drown in data but starve for decisions.*
 
 | Skill Area | Evidence in This Project |
 |:---|:---|
+| 🐍 **Python & ETL Engineering** | End-to-end pipeline — multi-sheet Excel ingestion, automated data cleaning, and programmatic MySQL loading via `pandas` + `mysql-connector-python` |
 | 🗄️ **Data Modeling** | Star schema with 2 fact tables and 5 dimension tables — deliberate design, not accidental structure |
 | 🔧 **SQL Engineering** | 29 production-ready views with dynamic K/M/B auto-formatting and window functions (`LAG`, `NULLIF`) |
 | 📐 **Business KPI Design** | Perfect Order Rate, Days Inventory on Hand, Fill Rate, Supplier OTD — not just counts and sums |
@@ -79,6 +81,7 @@ Supply chain teams operating at scale **drown in data but starve for decisions.*
 
 | Tool | Role in This Project |
 |:---|:---|
+| **Python** | ETL pipeline — multi-sheet Excel ingestion, automated data cleaning, schema creation, and MySQL loading |
 | **MySQL** | Database design, star schema modeling, 29 reusable analytical KPI views |
 | **Microsoft Excel** | Operational dashboard with slicers for regional managers and sales teams |
 | **Power BI** | Enterprise dashboard for cross-functional leadership with full cross-filtering |
@@ -102,7 +105,78 @@ Dim_Product       ← Name, category, sub-category, unit cost
 Dim_Customer      ← Segment, region, country, city
 Dim_Supplier      ← Name, tier, reliability score
 Dim_Warehouse     ← Location, capacity units
+Dim_Calendar      ← Date, year, month, quarter for time intelligence
 ```
+
+---
+
+## 🐍 Python ETL Pipeline
+
+> **Raw Excel → Cleaned DataFrames → MySQL — fully automated in a single Jupyter Notebook.**
+> No manual data entry. No copy-paste. Schema creation and data loading are programmatic and repeatable.
+
+### Pipeline Architecture
+
+```
+Supply_Chain_Dataset.xlsx
+        │
+        ▼
+┌───────────────────────┐
+│   EXTRACT             │  pandas.read_excel() — all 7 sheets loaded simultaneously
+└───────────────────────┘
+        │
+        ▼
+┌───────────────────────┐
+│   TRANSFORM           │  Cleaning operations applied per table
+└───────────────────────┘
+        │
+        ▼
+┌───────────────────────┐
+│   LOAD                │  mysql-connector-python — schema creation + bulk insert
+└───────────────────────┘
+        │
+        ▼
+  supply_chain_db (MySQL 8.0)
+```
+
+### Cleaning Operations Performed
+
+| Table | Operations |
+|:---|:---|
+| All tables | Strip leading/trailing whitespace from all string columns |
+| `Dim_Product` | Round `Unit_Cost`, `Unit_Price` to 2 decimal places |
+| `Dim_Supplier` | Round `Reliability_Score` to 2 decimal places |
+| `Dim_Calendar` | Drop 3 unnamed trailing columns (Excel artifact); strip datetime to date only; rename reserved MySQL 8.0 keywords (`Date` → `Cal_Date`, `Year` → `Cal_Year`, `Month` → `Cal_Month`) |
+| `Fact_Orders` | Drop 3 unnamed trailing columns; normalize 4 date columns to date only; round 6 float columns to 2 decimal places |
+| `Fact_Inventory` | Normalize `Snapshot_Date` to date only; round `Days_Of_Supply` to 2 decimal places |
+
+### Key Engineering Decisions
+
+**Reserved keyword handling** — MySQL 8.0 reserves `DATE`, `YEAR`, `MONTH`, `QUARTER`, and `YEAR_MONTH` as SQL keywords. All `Dim_Calendar` columns were prefixed with `Cal_` at the DataFrame level so DDL and INSERT statements match without conflicts.
+
+**FK-safe load order** — Dimension tables load before fact tables to satisfy foreign key constraints: `dim_product` → `dim_supplier` → `dim_warehouse` → `dim_customer` → `dim_calendar` → `fact_orders` → `fact_inventory`.
+
+**Idempotent inserts** — `INSERT ... ON DUPLICATE KEY UPDATE` ensures the pipeline is safe to re-run without creating duplicates.
+
+**NaN → NULL conversion** — Python `float('nan')` is not the same as SQL `NULL`. Every row is cleaned with `None if (val != val) else val` before insertion so MySQL receives proper NULLs.
+
+<details>
+<summary><b>📋 Final Row Counts After Load</b></summary>
+
+<br>
+
+| Table | Rows Loaded |
+|:---|---:|
+| `dim_product` | 92 |
+| `dim_supplier` | 32 |
+| `dim_warehouse` | 20 |
+| `dim_customer` | 1,500 |
+| `dim_calendar` | 730 |
+| `fact_orders` | 12,000 |
+| `fact_inventory` | 6,228 |
+| **Total** | **20,602** |
+
+</details>
 
 ---
 
@@ -297,15 +371,10 @@ High spend concentration with one supplier creates supply chain fragility. A dis
 
 ---
 
-
-
-
-
----
 <div align="center">
 
 *⭐ If this project helped you, consider giving it a star — it helps others find it too.*
 
-`MySQL` · `Power BI` · `Tableau` · `Excel` · `Supply Chain Analytics` · `Business Intelligence` · `Star Schema` · `KPI Engineering`
+`Python` · `MySQL` · `Power BI` · `Tableau` · `Excel` · `Supply Chain Analytics` · `Business Intelligence` · `Star Schema` · `KPI Engineering` · `ETL Pipeline`
 
 </div>
